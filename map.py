@@ -21,6 +21,12 @@ for i in long_dms:
     long_dd.append([(float(deg) + float(minutes)/60 + float(seconds)/(60*60))])
 
 fig = plt.figure(figsize=(12,9))
+in_USA_X = []
+in_USA_Y = []
+for i in range(len(lat_dd)):
+    if(long_dd[i][0]> -125 and long_dd[i][0]< -60 and lat_dd[i][0]>14 and lat_dd[i][0]<48):
+        in_USA_X.append(long_dd[i])
+        in_USA_Y.append(lat_dd[i])
 
 m = Basemap(projection='mill',
            llcrnrlat = -90,
@@ -40,6 +46,7 @@ m.drawmeridians(np.arange(-180,180,30),labels=[0,0,0,1])
 m.arcgisimage(service='ESRI_Imagery_World_2D', xpixels = 2000, verbose= True)
 #m.scatter(long_dd[4288],lat_dd[4288],color = 'red',marker='x',s = 100, latlon=True)
 m.scatter(long_dd[1139],lat_dd[1139],color = 'red',marker='x',s = 300, latlon=True)
+m.scatter(in_USA_X,in_USA_Y,color = 'purple',marker='x',s = 300, latlon=True)
 plt.title(' Experiment runtime ISS orbit', fontsize=20)
 
 plt.show()
