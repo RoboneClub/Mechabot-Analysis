@@ -2,6 +2,7 @@ import pandas as pd
 data=pd.read_csv('data01.csv')
 lat_dms = data.iloc[:,2].values
 long_dms = data.iloc[:,3].values
+pic_no = data.iloc[:,:]
 lat_dd = []
 for i in lat_dms:
     deg, minutes, seconds =  i.split(':')
