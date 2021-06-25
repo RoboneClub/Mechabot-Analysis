@@ -1,6 +1,7 @@
 #https://www.worldweatheronline.com/developer/api/docs/historical-weather-api.aspx
 import requests
 import numpy as np
+from geopy.geocoders import Nominatim
 from datetime import datetime,timedelta
 url = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?"
 key = "4604ce6dc9974503bb5152326211806" 
@@ -84,6 +85,13 @@ def get_avg_humidity(data):
             this_point_humidity.append(float(np.average(hourly)))
         humidity_history.append(np.flip(this_point_humidity))
     return humidity_history
+
+def get_location(long,lat):
+    geolocator = Nominatim(user_agent="GoogleV3")
+    locations = []
+    for i,j in zip(long,lat): 
+        locations.append(geolocator.reverse(str(i[0])+","+str(j[0])))
+
 
 if __name__ == '__main__':
     lat = [51.94]
