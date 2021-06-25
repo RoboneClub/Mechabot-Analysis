@@ -1,5 +1,6 @@
 #https://www.worldweatheronline.com/developer/api/docs/historical-weather-api.aspx
 import requests
+import numpy as np
 from datetime import datetime,timedelta
 url = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?"
 key = "4604ce6dc9974503bb5152326211806" 
@@ -23,6 +24,66 @@ def get_weather_data(lat=[],long=[],date=[]):
         print(f"API Fetching Progress {counter*100/length}%")
         weather_data.append(this_location_weather)
     return weather_data
+
+
+
+def get_avg_temp(data):
+    temp_history = []
+    for point in data:
+        this_point_temp = []
+        for year_reading in point:
+            this_point_temp.append(int(year_reading['weather'][0]['avgtempC']))
+        temp_history.append(np.flip(this_point_temp))
+    return temp_history
+
+
+def get_uv_index(data):
+    uv_index_history = []
+    for point in data:
+        this_point_temp = []
+        for year_reading in point:
+            this_point_temp.append(int(year_reading['weather'][0]['uvIndex']))
+        uv_index_history.append(np.flip(this_point_temp))
+    return uv_index_history
+
+def get_avg_precipitation(data):
+    precip_history = []
+    for point in data:
+        this_point_precip = []
+        for year_reading in point:
+            hourly = []
+            for hour in year_reading['weather'][0]['hourly']:
+                hourly.append(float(hour['precipMM']))
+
+            this_point_precip.append(float(np.average(hourly)))
+        precip_history.append(np.flip(this_point_precip))
+    return precip_history
+
+def get_avg_wind_speed(data):
+    wind_speed_history = []
+    for point in data:
+        this_point_wind_speed = []
+        for year_reading in point:
+            hourly = []
+            for hour in year_reading['weather'][0]['hourly']:
+                hourly.append(float(hour['windspeedKmph']))
+
+            this_point_wind_speed.append(float(np.average(hourly)))
+        wind_speed_history.append(np.flip(this_point_wind_speed))
+    return wind_speed_history
+
+def get_avg_humidity(data):
+    humidity_history = []
+    for point in data:
+        this_point_humidity = []
+        for year_reading in point:
+            hourly = []
+            for hour in year_reading['weather'][0]['hourly']:
+                hourly.append(float(hour['humidity']))
+
+            this_point_humidity.append(float(np.average(hourly)))
+        humidity_history.append(np.flip(this_point_humidity))
+    return humidity_history
 
 if __name__ == '__main__':
     lat = [51.94]

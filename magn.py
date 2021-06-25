@@ -21,6 +21,15 @@ def autocorr(x):
     index = int(len(result)/2)
     return result[index:]
 
+def get_magn_history(magn_resultant, decay = 0.0005):
+    history_magn = []
+    for i in magn_resultant:
+        arr = [i]
+        for j in range(9):
+            arr.append(arr[j] + arr[j]*decay)
+        
+        history_magn.append(np.flip(arr))
+    return history_magn
 
 
 if __name__ == '__main__':

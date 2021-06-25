@@ -67,11 +67,11 @@ plt.show()
 
 """_______________________ Part 2: Extracting 20  points to preform the research on _______________________"""
 
-''' The chosen points: '''
+''' 0-The chosen points: '''
 #Indices of the chosen points:
 points_of_study = [78, 179, 447, 597, 689, 771, 833, 953, 1037, 1125, 3974, 4037, 4075, 4133, 4155, 4180, 4197, 4234, 4271, 4286]
 
-#Extracting the location of these points from the dataset
+'''1-Extracting the location of these points from the dataset'''
 long_dms = data.iloc[points_of_study]['Longitude'].values
 lat_dms = data.iloc[points_of_study]['Latitude'].values
 
@@ -79,24 +79,53 @@ lat_dms = data.iloc[points_of_study]['Latitude'].values
 long_dd = map.dms2dd(long_dms)
 lat_dd = map.dms2dd(lat_dms)
 
-#Marking the Study Points on the Map
-map.plot(long_dd,lat_dd,'Study Points')
+'''2-Marking the Study Points on the Map'''
+#map.plot(long_dd,lat_dd,'Study Points')
 
-
+#Getting the image numbers for the images of the chosen locations
 imgs = data.iloc[points_of_study]['ImgNo'].values
+print(f"\n \n \n \t Make sure to Check out images: {imgs} to see the images corresponding to the chosen points \n\n\n\n\n")
+
+
+'''3-Extract the magnetic field readings corresponding to the chosen indices for the study:'''
+magn_points_of_study = pd.DataFrame({'col':magn_resultant}).iloc[points_of_study].values.flatten(order='C')
+
+
+
+'''4-Get the magnometic values history for 10 years of each location '''
+#https://www.pnas.org/content/115/20/5111#:~:text=Abstract,since%201600%20or%20even%20earlier.
+
+
+magn_history = magn.get_magn_history(magn_points_of_study,decay = 0.0005)
+
+
+
+
+"""_______________________ Part 3: Fetching the weather history data for the study points _______________________"""
+
+'''Importing the date for the Points'''
 date = data.iloc[points_of_study]['Date'].values
-magnX = data.iloc[points_of_study]['MagX'].values
-magnY = data.iloc[points_of_study]['MagY'].values
-magnZ = data.iloc[points_of_study]['MagZ'].values
+
+'''1-Fetch the weather data for the last 10 years for each point using the API'''
+weather_data = API.get_weather_data(lat_dd, long_dd, date)
+
+'''1.5-Saving the downloaded data in a numpy file '''
+np.save("weather_data.npy",weather_data)
+#For loading the file use 'np.load("weather_data.npy,allow_pickle=True)'
+
+
+'''2-Extract each variable from the downloaded data'''
 
 
 
-magn_resultant = magn.get_resultant(magnX,magnY,magnZ) 
+"""
+
+date = data.iloc[points_of_study]['Date'].values
 plt.plot(np.arange(0,len(magnX),1),magn_resultant2,label="filtered")
 plt.plot(np.arange(0,len(magnX),1),magn_resultant,label = "non_filtered")
 plt.legend()
 plt.show()
-
+"""
 """
 history_magn = []
 for i in Magn_resulatant:
