@@ -4,24 +4,22 @@ import pandas as pd
 
 
 def get_resultant(X,Y,Z):
+    """This function gets the resultant magnitudes of three arrays of vector quantities: X, Y, and Z."""
     resultant = []
     for i in range(len(X)):
         resultant.append((X[i]**2 + Y[i]**2 + Z[i] **2)**0.5)
     return resultant
 
 def get_mean(arr):
+    """This function uses numpy's mean funtion to calculate the mean of values in an array"""
     return np.mean(arr)
 
 def get_sd(arr):
+    """This function uses numpy's std funtion to calculate the standard deviation of values in an array"""
     return np.std(arr)
 
-
-def autocorr(x):
-    result = np.correlate(x, x, mode='full')
-    index = int(len(result)/2)
-    return result[index:]
-
 def get_magn_history(magn_resultant, decay = 0.0005):
+    """This function simulates Magnetometer readings in the past"""
     history_magn = []
     for i in magn_resultant:
         arr = [i]
@@ -34,7 +32,10 @@ def get_magn_history(magn_resultant, decay = 0.0005):
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
+
     data = pd.read_csv('data01.csv')
+    """imports the data from the csv using pandas library"""
+    """Takes only the time, magnetometer X, Y, and Z readings from the dataset:"""
     time = data.iloc[:,1].values
     MagnX = data.iloc[:,10].values
     MagnY = data.iloc[:,11].values
@@ -42,16 +43,21 @@ if __name__ == '__main__':
     plt.plot(np.arange(0,len(MagnX),1),MagnX,label='MagnX')
     plt.plot(np.arange(0,len(MagnX),1),MagnY,label='MagnY')
     plt.plot(np.arange(0,len(MagnX),1),MagnZ,label='MagnZ')
+    """plots magnetometer X,Y, and Z readings"""
     plt.legend()
     plt.show()
 
+    """calculates the resultant magnitude of the magnetic field"""
     Magn_resultant = get_resultant(MagnX,MagnY,MagnZ)
+    """calculates the mean of magnetometer readings"""
     Magn_mean = get_mean(Magn_resultant)
+    """calculates the standard deviation of magnetometer readings"""
     Magn_sd = get_sd(Magn_resultant)
 
     plt.plot(np.arange(0,len(MagnX),1),Magn_resultant,label='MagnResultant')
     plt.plot(np.arange(0,len(MagnX),1),[Magn_mean]*len(MagnX),label='Mean')
     plt.plot(np.arange(0,len(MagnX),1),[Magn_sd]*len(MagnX),label='Numpy Standard Deviation')
+    """plots resultant magnetometer values, the mean, and the standard deviation"""
     plt.legend()
     plt.show()
     
