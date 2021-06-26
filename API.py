@@ -4,8 +4,10 @@ import numpy as np
 from geopy.geocoders import Nominatim
 from datetime import datetime,timedelta
 url = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?"
-key = "4604ce6dc9974503bb5152326211806" 
+key = "4604ce6dc9974503bb5152326211806"
+
 def get_weather_data(lat=[],long=[],date=[]):
+    """This function gathers weather data for the corresponding latitude, longitude, and date, for the past 10 years."""
     weather_data = []
     length = len(lat)
     counter = 0
@@ -29,6 +31,7 @@ def get_weather_data(lat=[],long=[],date=[]):
 
 
 def get_avg_temp(data):
+    """this function gets the average temperatures for each point in the fetched data"""
     temp_history = []
     for point in data:
         this_point_temp = []
@@ -39,6 +42,7 @@ def get_avg_temp(data):
 
 
 def get_uv_index(data):
+    """this function gets the average uv index for each point in the fetched data"""
     uv_index_history = []
     for point in data:
         this_point_temp = []
@@ -48,6 +52,7 @@ def get_uv_index(data):
     return uv_index_history
 
 def get_avg_precipitation(data):
+    """this function gets the average precipitation for each point in the fetched data"""
     precip_history = []
     for point in data:
         this_point_precip = []
@@ -61,6 +66,7 @@ def get_avg_precipitation(data):
     return precip_history
 
 def get_avg_wind_speed(data):
+    """this function gets the average wind speeds for each point in the fetched data"""
     wind_speed_history = []
     for point in data:
         this_point_wind_speed = []
@@ -74,6 +80,7 @@ def get_avg_wind_speed(data):
     return wind_speed_history
 
 def get_avg_humidity(data):
+    """this function gets the average humidity for each point in the fetched data"""
     humidity_history = []
     for point in data:
         this_point_humidity = []

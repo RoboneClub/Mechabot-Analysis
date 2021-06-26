@@ -36,7 +36,7 @@ magn_mean = magn.get_mean(magn_resultant)
 
 
 '''4- Plotting the graphs '''
-
+"""
 #Adjusting the format of the time for the x-axis by flooring the seconds to remove the seconds fraction
 for i in range(len(time)):
     time[i] = time[i].split('.')[0]
@@ -58,6 +58,7 @@ plt.plot(time,[magn_mean]*len(magnX),label='Mean')
 plt.plot(time,[magn_sd]*len(magnX),label='Standard Deviation')
 plt.legend()
 plt.show()
+"""
 """
     The magnometer data show that:
 """

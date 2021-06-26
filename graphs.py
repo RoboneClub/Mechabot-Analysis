@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+"""importing data from CSV files"""
 data = pd.read_csv('data01.csv')
 time = data.iloc[:,1].values
 tilt = data.iloc[:,4:7].values
@@ -8,6 +9,7 @@ gyro = data.iloc[:,7:10].values
 magn = data.iloc[:,10:13].values
 acc = data.iloc[:,13:].values
 img = data.iloc[:,-1]
+"""importing time, tilt, gyroscope, magnetometer, acceleration, and img values"""
 """
 t = []
 for i in time:
@@ -72,6 +74,8 @@ plt.show()
 
 
 """
+
+"""plotting the graphs"""
 plt.title("Magn")
 plt.plot(time,magn[:,0],color = 'blue',label="x-Magnometer")
 plt.plot(time,magn[:,1],color = 'red',label="y-Magnometer")
