@@ -29,6 +29,32 @@ def get_magn_history(magn_resultant, decay = 0.0005):
         history_magn.append(np.flip(arr))
     return history_magn
 
+def sumnomeq(y,k):
+    """This function calculates the sum of all iterations of the nominaor in the autocorrelation formula"""
+    nomeq = []
+    end = len(y) - k
+    mean = get_mean(y)
+    for i in range(0,end):
+        nomeq.append((y[i] - mean) * ( y[i + k] - mean))
+    return np.sum(nomeq)
+def sumdenomeq(y):
+    """This function calculates the sum of all iterations of the denominaor in the autocorrelation formula"""
+    denomeq = []
+    mean = get_mean(y)
+    end = len(y) - 1
+    for i in range(0,end):
+        denomeq.append((y[i] - mean)**2)
+    return np.sum(denomeq)
+def autocor(y):
+    """Autocorrelation of array y"""
+    autocorarr = []
+    counter = 0
+    denom = sumdenomeq(y)
+    for i in range (len(y)-1):
+        autocorarr.append((sumnomeq(y,i)/denom))
+        counter += 1
+        print(f"Progress: {counter*100/len(y)}%")
+    return autocorarr
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
@@ -53,6 +79,10 @@ if __name__ == '__main__':
     Magn_mean = get_mean(Magn_resultant)
     """calculates the standard deviation of magnetometer readings"""
     Magn_sd = get_sd(Magn_resultant)
+
+    autocorr_magn = autocor(MagnX)#np.load("autocorrelation_magn.npy",allow_pickle=True) 
+    import plot
+    plot.plot_2d(np.arange(0,len(MagnX),1),'record number',[np.append(autocorr_magn,autocorr_magn[-1])],'Autocorrelation',[MagnX],"Magn")
 
     plt.plot(np.arange(0,len(MagnX),1),Magn_resultant,label='MagnResultant')
     plt.plot(np.arange(0,len(MagnX),1),[Magn_mean]*len(MagnX),label='Mean')
