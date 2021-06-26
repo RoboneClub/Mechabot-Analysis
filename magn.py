@@ -46,7 +46,7 @@ def sumdenomeq(y):
         denomeq.append((y[i] - mean)**2)
     return np.sum(denomeq)
 def autocor(y):
-    """Autocorrelation of array y"""
+    """Autocorrelation of array y""" #Formula from: https://www.itl.nist.gov/div898/handbook/eda/section3/eda35c.htm
     autocorarr = []
     counter = 0
     denom = sumdenomeq(y)
