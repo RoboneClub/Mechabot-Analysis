@@ -24,7 +24,7 @@ if __name__ == '__main__':
     MagnX = data.iloc[:,10].values
     MagnY = data.iloc[:,11].values
     MagnZ = data.iloc[:,12].values
-    sensitivity = 0.043 #Senstivity according to https://www.st.com/resource/en/datasheet/lsm9ds1.pdf #0.15 microtesla 
+    sensitivity = 0.043 #Senstivity according to https://www.st.com/resource/en/datasheet/lsm9ds1.pdf 
     frequency = 20  #Frequency according to https://www.st.com/resource/en/datasheet/lsm9ds1.pdf
     rms = 3.2 * 10**-3 #RMS Noise assumtion according to https://www.st.com/resource/en/datasheet/lis3mdl.pdf which is a similar build
     Magn = noise_filtering(MagnX,MagnY,MagnZ,sensitivity,frequency,rms)
