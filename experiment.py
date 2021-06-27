@@ -26,6 +26,8 @@ magnZ = data.iloc[:,12].values
 ''' 2-Preprocessing the data by applying noise filteration '''
 
 magn_filtered_matrix = noise_filtering.noise_filtering(magnX,magnY,magnZ,sensitivity = 0.043, frequency = 20,  rms = (3.2 * 10**-3) )
+    #Senstivity and Frequency are according to https://www.st.com/resource/en/datasheet/lsm9ds1.pdf
+    #RMS Noise assumtion according to https://www.st.com/resource/en/datasheet/lis3mdl.pdf which is a similar build
 
 
 ''' 3- Calculating the resultant magnitude of the magnetic field, the standard deviation,the mean and the  auto corelation of the points'''
@@ -33,6 +35,7 @@ magn_filtered_matrix = noise_filtering.noise_filtering(magnX,magnY,magnZ,sensiti
 magn_resultant = magn.get_resultant(magn_filtered_matrix[:,0],magn_filtered_matrix[:,1],magn_filtered_matrix[:,2])
 magn_sd = magn.get_sd(magn_resultant)
 magn_mean = magn.get_mean(magn_resultant)
+magn_autocorrelation = magn.autocor(magn_resultant)
 
 
 '''4- Plotting the graphs '''

@@ -10,6 +10,10 @@ def get_resultant(X,Y,Z):
         resultant.append((X[i]**2 + Y[i]**2 + Z[i] **2)**0.5)
     return resultant
 
+def get_mean_3(x, y, z):
+    """This function calculates the mean of three values"""
+    return (x+y+z)/3
+
 def get_mean(arr):
     """This function uses numpy's mean funtion to calculate the mean of values in an array"""
     return np.mean(arr)
@@ -28,6 +32,10 @@ def get_magn_history(magn_resultant, decay = 0.0005):
         
         history_magn.append(np.flip(arr))
     return history_magn
+
+def cor(y,z):
+    """This function numpy's correlate function to find correlations between two arrays"""
+    return np.correlate(y,z,mode="full")
 
 def sumnomeq(y,k):
     """This function calculates the sum of all iterations of the nominaor in the autocorrelation formula"""
@@ -53,7 +61,7 @@ def autocor(y):
     for i in range (len(y)-1):
         autocorarr.append((sumnomeq(y,i)/denom))
         counter += 1
-        print(f"Progress: {counter*100/len(y)}%")
+        print(f"Progress of calculating autocorrelation: {counter*100/len(y)}%")
     return autocorarr
 
 if __name__ == '__main__':
