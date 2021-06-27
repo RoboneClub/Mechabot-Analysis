@@ -98,7 +98,7 @@ def get_location(long,lat):
     locations = []
     for i,j in zip(long,lat): 
         location = geolocator.reverse(str(i)+","+str(j))
-        location = location.address if location != None else 'Location at:' + str(i) + "," + str(j)
+        location = location.address if location != None else 'N/A'
         locations.append(location)
     return locations
 
