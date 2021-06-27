@@ -61,7 +61,7 @@ def autocor(y):
     for i in range (len(y)-1):
         autocorarr.append((sumnomeq(y,i)/denom))
         counter += 1
-        print(f"Progress: {counter*100/len(y)}%")
+        print(f"Progress of calculating autocorrelation: {counter*100/len(y)}%")
     return autocorarr
 
 if __name__ == '__main__':

@@ -87,6 +87,7 @@ plt.plot(acc_autocorrelation_pure, label= "Raw  acceleration readings autocorrel
 plt.xlabel("Readings number")
 plt.ylabel("Autocorrelation value")
 plt.title("Auto correlation of Resultant Acceleration")
+plt.legend()
 plt.show()
 
 #plots magnetometer data
@@ -116,7 +117,8 @@ magn_acc_cor = magn.cor(magn_filtered_resultant, acc_filtered_resultant)
 #plots correlation data
 plt.title("Correlation between Acceleration and Magnetic Intensity")
 plt.xlabel("Reading number")
-plt.plot(magn_acc_cor,label='Correlation value')
+plt.plot(magn_acc_cor)
+plt.ylabel("Correlation value")
 plt.legend()
 plt.show()
 
@@ -125,7 +127,8 @@ magn_gyroX_cor = magn.cor(magn_filtered_resultant, gyroX_filtered)
 #plots correlation data
 plt.title("Correlation between Angular velocity in X-axis and Magnetic Intensity")
 plt.xlabel("Reading number")
-plt.plot(magn_gyroX_cor,label='Correlation value')
+plt.plot(magn_gyroX_cor)
+plt.ylabel("Correlation value")
 plt.legend()
 plt.show()
 
@@ -134,7 +137,8 @@ magn_gyroY_cor = magn.cor(magn_filtered_resultant, gyroY_filtered)
 #plots correlation data
 plt.title("Correlation between Angular velocity in Y-axis and Magnetic Intensity")
 plt.xlabel("Reading number")
-plt.plot(magn_gyroY_cor,label='Correlation value')
+plt.plot(magn_gyroY_cor)
+plt.ylabel("Correlation value")
 plt.legend()
 plt.show()
 
@@ -143,6 +147,7 @@ magn_gyroZ_cor = magn.cor(magn_filtered_resultant, gyroZ_filtered)
 #plots correlation data
 plt.title("Correlation between Angular velocity in Z-axis and Magnetic Intensity")
 plt.xlabel("Reading number")
-plt.plot(magn_gyroZ_cor,label='Correlation value')
+plt.plot(magn_gyroZ_cor)
+plt.ylabel("Correlation value")
 plt.legend()
 plt.show()
