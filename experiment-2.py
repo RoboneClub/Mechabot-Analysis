@@ -65,20 +65,13 @@ gyro_mean_mean = magn.get_mean_3(gyroX_mean, gyroY_mean, gyroZ_mean)
 magn_sd = magn.get_sd(magn_filtered_resultant)
 magn_mean = magn.get_mean(magn_filtered_resultant)
 magn_autocorrelation = magn.autocor(magn_filtered_resultant)
-magn_autocorrelation_pure = magn.autocor(magn_resultant)
 
 acc_sd = magn.get_sd(acc_filtered_resultant)
 acc_mean = magn.get_mean(acc_filtered_resultant)
 acc_autocorrelation = magn.autocor(acc_filtered_resultant)
 acc_autocorrelation_pure = magn.autocor(acc_resultant)
-"""_______________________ Part 2: Comparing and correlating data ______________________"""
 
-
-'''1- Plotting the readings '''
-#Adjusting the format of the time for the x-axis by flooring the seconds to remove the seconds fraction
-for i in range(len(time)):
-    time[i] = time[i].split('.')[0]
-
+'''4- Plotting the Autocorrelation'''
 #plots accelerometer data
 plt.title("Accelerometer Data")
 plt.xlabel("Reading number")
@@ -87,6 +80,13 @@ plt.plot(acc_filtered_resultant,label='AccResultant')
 plt.plot([acc_mean]*len(accX),label='Mean')
 plt.plot([acc_sd]*len(accX),label='Standard Deviation')
 plt.legend()
+plt.show()
+
+plt.plot(acc_autocorrelation, label = "Noise filtered acceleration readings autocorrelation")
+plt.plot(acc_autocorrelation_pure, label= "Raw  acceleration readings autocorrelation")
+plt.xlabel("Readings number")
+plt.ylabel("Autocorrelation value")
+plt.title("Auto correlation of Resultant Acceleration")
 plt.show()
 
 #plots magnetometer data
@@ -98,21 +98,51 @@ plt.plot([magn_mean]*len(magnX),label='Mean')
 plt.plot([magn_sd]*len(magnX),label='Standard Deviation')
 plt.legend()
 plt.show()
-'''2- Plotting the correlations '''
+#plots autocorrelation data
+plot.plot_2d(np.arange(0,len(magn_filtered_resultant),1),'Reading number',[np.append(magn_autocorrelation,magn_autocorrelation[-1])],'Autocorrelation of magnetic field',[magn_filtered_resultant],"Resultant Magnetic field Intensity/µT")
+
+
+
+
+
+
+"""_______________________ Part 2: Comparing and correlating data ______________________"""
+
+
+'''1- Plotting the correlations '''
 
 magn_acc_cor = magn.cor(magn_filtered_resultant, acc_filtered_resultant)
 
 #plots correlation data
 plt.title("Correlation between Acceleration and Magnetic Intensity")
 plt.xlabel("Reading number")
-plt.plot(magn_acc_cor,label='Correlation')
+plt.plot(magn_acc_cor,label='Correlation value')
 plt.legend()
 plt.show()
 
-#plots autocorrelation data
-plot.plot_2d(np.arange(0,len(magn_filtered_resultant),1),'Reading number',[np.append(magn_autocorrelation,magn_autocorrelation[-1])],'Autocorrelation',[magn_filtered_resultant],"Resultant noise filtered magnetic field")
-plot.plot_2d(np.arange(0,len(magn_resultant),1),'Reading number',[np.append(magn_autocorrelation_pure,magn_autocorrelation_pure[-1])],'Autocorrelation',[magn_resultant],"Resultant unfiltered magnetic field")
+magn_gyroX_cor = magn.cor(magn_filtered_resultant, gyroX_filtered)
 
-#plots autocorrelation data
-plot.plot_2d(np.arange(0,len(acc_filtered_resultant),1),'Reading number',[np.append(acc_autocorrelation,acc_autocorrelation[-1])],'Autocorrelation',[acc_filtered_resultant],"Resultant noise filtered acceleration")
-plot.plot_2d(np.arange(0,len(acc_resultant),1),'Reading number',[np.append(acc_autocorrelation_pure,acc_autocorrelation_pure[-1])],'Autocorrelation',[acc_resultant],"Resultant unfiltered acceleration")
+#plots correlation data
+plt.title("Correlation between Angular velocity in X-axis and Magnetic Intensity")
+plt.xlabel("Reading number")
+plt.plot(magn_gyroX_cor,label='Correlation value')
+plt.legend()
+plt.show()
+
+magn_gyroY_cor = magn.cor(magn_filtered_resultant, gyroY_filtered)
+
+#plots correlation data
+plt.title("Correlation between Angular velocity in Y-axis and Magnetic Intensity")
+plt.xlabel("Reading number")
+plt.plot(magn_gyroY_cor,label='Correlation value')
+plt.legend()
+plt.show()
+
+magn_gyroZ_cor = magn.cor(magn_filtered_resultant, gyroZ_filtered)
+
+#plots correlation data
+plt.title("Correlation between Angular velocity in Z-axis and Magnetic Intensity")
+plt.xlabel("Reading number")
+plt.plot(magn_gyroZ_cor,label='Correlation value')
+plt.legend()
+plt.show()
