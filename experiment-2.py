@@ -44,15 +44,15 @@ gyroX_filtered = gyro_filtered_matrix[:,0]
 gyroY_filtered = gyro_filtered_matrix[:,1]
 gyroZ_filtered = gyro_filtered_matrix[:,2]
 
-magn_filtered_resultant = magn_filtered_matrix
-magnX_filtered = magn_filtered_matrix[:,0]
-magnY_filtered = magn_filtered_matrix[:,1]
-magnZ_filtered = magn_filtered_matrix[:,2]
+magn_filtered_resultant = magn.get_resultant(magn_filtered_matrix[:,0],magn_filtered_matrix[:,1],magn_filtered_matrix[:,2])
+#magnX_filtered = magn_filtered_matrix[:,0]
+#magnY_filtered = magn_filtered_matrix[:,1]
+#magnZ_filtered = magn_filtered_matrix[:,2]
 
-acc_filtered_resultant = acc_filtered_matrix
-accX_filtered = acc_filtered_matrix[:,0]
-accY_filtered = acc_filtered_matrix[:,1]
-accZ_filtered = acc_filtered_matrix[:,2]
+acc_filtered_resultant = magn.get_resultant(acc_filtered_matrix[:,0],acc_filtered_matrix[:,1],acc_filtered_matrix[:,2])
+#accX_filtered = acc_filtered_matrix[:,0]
+#accY_filtered = acc_filtered_matrix[:,1]
+#accZ_filtered = acc_filtered_matrix[:,2]
 
 ''' 3- Calculating the resultant magnitude, the standard deviation, the mean and the auto corelation of the points
 for the magnetic field, and the acceleration, and the angular rate'''
@@ -69,11 +69,11 @@ gyro_mean_mean = magn.get_mean_3(gyroX_mean, gyroY_mean, gyroZ_mean,)
 
 magn_sd = magn.get_sd(magn_filtered_resultant)
 magn_mean = magn.get_mean(magn_filtered_resultant)
-magn_autocorrelation = magn.autocor(magn_filtered_resultant)
+#magn_autocorrelation = magn.autocor(magn_filtered_resultant)
 
 acc_sd = magn.get_sd(acc_filtered_resultant)
 acc_mean = magn.get_mean(acc_filtered_resultant)
-acc_autocorrelation = magn.autocor(acc_filtered_resultant)
+#acc_autocorrelation = magn.autocor(acc_filtered_resultant)
 
 '''4- Plotting the graphs '''
 
@@ -92,6 +92,7 @@ plt.show()
 """
 
 #plots accelerometer data
+"""
 plt.title("Accelerometer Data")
 plt.xlabel("Time")
 plt.ylabel("Acceleration/g")
@@ -111,7 +112,7 @@ plt.plot(time,[magn_sd]*len(magnX),label='Standard Deviation')
 plt.legend()
 plt.show()
 
-
+"""
 magn_acc_cor = magn.cor(magn_filtered_resultant, acc_filtered_resultant)
 
 #plots correlation data
