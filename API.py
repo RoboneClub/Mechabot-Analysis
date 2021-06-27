@@ -97,12 +97,17 @@ def get_location(long,lat):
     geolocator = Nominatim(user_agent="GoogleV3")
     locations = []
     for i,j in zip(long,lat): 
-        locations.append(geolocator.reverse(str(i[0])+","+str(j[0])))
+        location = geolocator.reverse(str(i)+","+str(j))
+        location = location.address if location != None else 'Location at:' + str(i) + "," + str(j)
+        locations.append(location)
+    return locations
 
 
 if __name__ == '__main__':
-    lat = [51.94]
-    long = [-51.28]
+    lat = [52.509669]
+    long = [13.376294]
     date = ["01/01/2010"]
     data = get_weather_data(lat,long,date) 
     print(data[0][0]['weather'][0]['avgtempC']) #prints the average tempereature for 01/01/2010 of the first location
+    print("/n/n//n/n/n\nn\n\n\n\n\n\n\n")
+    print(get_location(lat,long)) #prints the average tempereature for 01/01/2010 of the first location

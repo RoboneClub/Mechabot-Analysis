@@ -127,9 +127,12 @@ avg_humidity = API.get_avg_humidity(weather_data)
 
 """_______________________ Part 4: Comparing the Magnometer values with  the weather history data for each of the study points _______________________"""
 import plot
+locations = API.get_location(long_dd,lat_dd)
+
 x_axis = np.arange(2012,2022,1)
-plot.plot_2d(x_axis,'Year',avg_temp,'Average Temperature of day',magn_history,'Magnetic field intensity/µT')
-plot.plot_2d(x_axis,'Year',avg_wind_speed,'Average wind speed',magn_history,'Magnetic field intensity/µT')
-plot.plot_2d(x_axis,'Year',avg_uv_index,'Average UV index',magn_history,'Magnetic field intensity/µT')
-plot.plot_2d(x_axis,'Year',avg_precip,'Average precip',magn_history,'Magnetic field intensity/µT')
-plot.plot_2d(x_axis,'Year',avg_humidity,'Average humidity',magn_history,'Magnetic field intensity/µT')
+
+plot.plot_2d(x_axis,'Year',avg_temp,'Average Temperature of day',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_wind_speed,'Average wind speed',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_uv_index,'Average UV index',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_precip,'Average precip',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_humidity,'Average humidity',magn_history,'Magnetic field intensity/µT',locations)
