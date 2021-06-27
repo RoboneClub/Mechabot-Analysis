@@ -10,6 +10,10 @@ def get_resultant(X,Y,Z):
         resultant.append((X[i]**2 + Y[i]**2 + Z[i] **2)**0.5)
     return resultant
 
+def get_mean_3(x, y, z):
+    """This function calculates the mean of three values"""
+    return (x+y+z)/3
+
 def get_mean(arr):
     """This function uses numpy's mean funtion to calculate the mean of values in an array"""
     return np.mean(arr)
