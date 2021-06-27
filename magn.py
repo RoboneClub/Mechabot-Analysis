@@ -29,6 +29,10 @@ def get_magn_history(magn_resultant, decay = 0.0005):
         history_magn.append(np.flip(arr))
     return history_magn
 
+def cor(y,z):
+    """This function numpy's correlate function to find correlations between two arrays"""
+    return np.correlate(y,z,mode="full")
+
 def sumnomeq(y,k):
     """This function calculates the sum of all iterations of the nominaor in the autocorrelation formula"""
     nomeq = []
