@@ -4,7 +4,7 @@ import numpy as np
 from geopy.geocoders import Nominatim
 from datetime import datetime,timedelta
 url = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?"
-key = "4604ce6dc9974503bb5152326211806"
+key = "XXXXXXXXXXXXXXXXXXXXXXXX" #Add the API key here
 
 def get_weather_data(lat=[],long=[],date=[]):
     """This function gathers weather data for the corresponding latitude, longitude, and date, for the past 10 years."""
