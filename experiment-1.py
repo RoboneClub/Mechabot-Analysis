@@ -118,32 +118,9 @@ avg_humidity = np.array(API.get_avg_humidity(weather_data))
 
 
 
+"""Results of Experiment 1.0:
 
-
-"""_______________________ Part 4: Comparing the Magnometer values with  the weather history data for each of the study points _______________________"""
-
-"""
-This experiment produces graphs that check for correlations between change in Magnetic field intensity and the change of each of
-Average Temperature, Wind Speed, UV Index, Precipitation, and Humidty in 20 locations for the past 10 years.
-Each graph contains the past climate history along side with the magnetic intensity history for Each Location from the 20 Points.
-"""
-
-import plot
-locations = API.get_location(long_dd,lat_dd)
-
-x_axis = np.arange(2012,2022,1)
-
-#plotting the graphs
-plot.plot_2d(x_axis,'Year',avg_temp,'Average Temperature of day',magn_history,'Magnetic field intensity/µT',locations)
-plot.plot_2d(x_axis,'Year',avg_wind_speed,'Average wind speed',magn_history,'Magnetic field intensity/µT',locations)
-plot.plot_2d(x_axis,'Year',avg_uv_index,'Average UV index',magn_history,'Magnetic field intensity/µT',locations)
-plot.plot_2d(x_axis,'Year',avg_precip,'Average precip',magn_history,'Magnetic field intensity/µT',locations)
-plot.plot_2d(x_axis,'Year',avg_humidity,'Average humidity',magn_history,'Magnetic field intensity/µT',locations)
-
-
-
-"""____________ Part 5: Comparing the Magnometer values with the climate of the study points to check general characetistics of magnetic zones __________"""
-
+    ____________ Part 4: Comparing the Magnometer values with the climate of the study points to check general characetistics of magnetic zones __________"""
 """
 This experiment checks for the presence of climate characteristics associated with the magnetic intensity.For example it checks if
 areas with high magnetic intensities tend to have higher temperatures than other areas with lower magnetic intensities.
@@ -180,3 +157,29 @@ plt.scatter(magn_points_of_study,avg_humidity[:,0])
 plt.ylabel("Average Humidity/%")
 plt.xlabel("Magnetic Intensity/µT")
 plt.show()
+
+
+
+"""Results of Experiment 1.5:
+    _______________________ Part 5: Comparing the Magnometer values with  the weather history data for each of the study points _______________________"""
+
+"""
+This experiment produces graphs that check for correlations between change in Magnetic field intensity and the change of each of
+Average Temperature, Wind Speed, UV Index, Precipitation, and Humidty in 20 locations for the past 10 years.
+Each graph contains the past climate history along side with the magnetic intensity history for Each Location from the 20 Points.
+"""
+
+import plot
+locations = API.get_location(long_dd,lat_dd)
+
+x_axis = np.arange(2012,2022,1)
+
+#plotting the graphs
+plot.plot_2d(x_axis,'Year',avg_temp,'Average Temperature of day',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_wind_speed,'Average wind speed',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_uv_index,'Average UV index',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_precip,'Average precip',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_humidity,'Average humidity',magn_history,'Magnetic field intensity/µT',locations)
+
+
+
