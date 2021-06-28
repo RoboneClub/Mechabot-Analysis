@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Ignore core code for our experiment
+Mechabot/
+
 # Distribution / packaging
 .Python
 build/
