@@ -39,10 +39,6 @@ magn_autocorrelation = magn.autocor(magn_resultant)
 
 
 '''4- Plotting the graphs '''
-"""
-#Adjusting the format of the time for the x-axis by flooring the seconds to remove the seconds fraction
-for i in range(len(time)):
-    time[i] = time[i].split('.')[0]
 
 plt.title("Magnometer Readings")
 plt.xlabel("Time")
@@ -61,10 +57,6 @@ plt.plot(time,[magn_mean]*len(magnX),label='Mean')
 plt.plot(time,[magn_sd]*len(magnX),label='Standard Deviation')
 plt.legend()
 plt.show()
-"""
-"""
-    The magnometer data show that:
-"""
 
 
 """_______________________ Part 2: Extracting 20  points to preform the research on _______________________"""
@@ -82,7 +74,7 @@ long_dd = map.dms2dd(long_dms)
 lat_dd = map.dms2dd(lat_dms)
 
 '''2-Marking the Study Points on the Map'''
-#map.plot(long_dd,lat_dd,'Study Points')
+map.plot(long_dd,lat_dd,'Study Points')
 
 #Getting the image numbers for the images of the chosen locations
 imgs = data.iloc[points_of_study]['ImgNo'].values
@@ -95,7 +87,7 @@ magn_points_of_study = pd.DataFrame({'col':magn_resultant}).iloc[points_of_study
 
 
 '''4-Get the magnometic values history for 10 years of each location '''
-#https://www.pnas.org/content/115/20/5111#:~:text=Abstract,since%201600%20or%20even%20earlier.
+#Refrence for decay value: https://www.pnas.org/content/115/20/5111#:~:text=Abstract,since%201600%20or%20even%20earlier.
 
 
 magn_history = magn.get_magn_history(magn_points_of_study,decay = 0.0005)
@@ -109,19 +101,19 @@ magn_history = magn.get_magn_history(magn_points_of_study,decay = 0.0005)
 date = data.iloc[points_of_study]['Date'].values
 
 '''1-Downloading the weather data for the last 10 years for each point using the API'''
-#weather_data = API.get_weather_data(lat_dd, long_dd, date)
+weather_data = API.get_weather_data(lat_dd, long_dd, date)
 
 '''1.5-Saving the downloaded data in a numpy file '''
-#np.save("weather_data.npy",weather_data)
-#For loading the file use 'np.load("weather_data.npy",allow_pickle=True)'
-weather_data = np.load("weather_data.npy",allow_pickle=True)
+np.save("weather_data.npy",weather_data)
+#For loading the file:
+#weather_data = np.load("weather_data.npy",allow_pickle=True)
 
 '''2-Extract each variable from the downloaded data'''
-avg_temp = API.get_avg_temp(weather_data)
-avg_wind_speed = API.get_avg_wind_speed(weather_data)
-avg_uv_index = API.get_uv_index(weather_data)
-avg_precip = API.get_avg_precipitation(weather_data)
-avg_humidity = API.get_avg_humidity(weather_data)
+avg_temp = np.array(API.get_avg_temp(weather_data))
+avg_wind_speed = np.array(API.get_avg_wind_speed(weather_data))
+avg_uv_index = np.array(API.get_uv_index(weather_data))
+avg_precip = np.array(API.get_avg_precipitation(weather_data))
+avg_humidity = np.array(API.get_avg_humidity(weather_data))
 
 
 
@@ -130,9 +122,46 @@ avg_humidity = API.get_avg_humidity(weather_data)
 
 """_______________________ Part 4: Comparing the Magnometer values with  the weather history data for each of the study points _______________________"""
 import plot
+locations = API.get_location(long_dd,lat_dd)
+
 x_axis = np.arange(2012,2022,1)
-plot.plot_2d(x_axis,'Year',avg_temp,'Average Temperature of day',magn_history,'Magnetic field intensity/µT')
-plot.plot_2d(x_axis,'Year',avg_wind_speed,'Average wind speed',magn_history,'Magnetic field intensity/µT')
-plot.plot_2d(x_axis,'Year',avg_uv_index,'Average UV index',magn_history,'Magnetic field intensity/µT')
-plot.plot_2d(x_axis,'Year',avg_precip,'Average precip',magn_history,'Magnetic field intensity/µT')
-plot.plot_2d(x_axis,'Year',avg_humidity,'Average humidity',magn_history,'Magnetic field intensity/µT')
+
+plot.plot_2d(x_axis,'Year',avg_temp,'Average Temperature of day',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_wind_speed,'Average wind speed',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_uv_index,'Average UV index',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_precip,'Average precip',magn_history,'Magnetic field intensity/µT',locations)
+plot.plot_2d(x_axis,'Year',avg_humidity,'Average humidity',magn_history,'Magnetic field intensity/µT',locations)
+
+
+
+"""____________ Part 5: Comparing the Magnometer values with the climate of the study points to check general characetistics of magnetic zones __________"""
+
+plt.title("Magnometer - Temperature")
+plt.scatter(magn_points_of_study,avg_temp[:,0])
+plt.ylabel("Average Temperature/ C")
+plt.xlabel("Magnetic Intensity/µT")
+plt.show()
+
+plt.title("Magnometer - Windspeed")
+plt.scatter(magn_points_of_study,avg_wind_speed[:,0])
+plt.ylabel("Average Wind Speed/ KmHr")
+plt.xlabel("Magnetic Intensity/µT")
+plt.show()
+
+plt.title("Magnometer - UV index")
+plt.scatter(magn_points_of_study,avg_uv_index[:,0])
+plt.ylabel("Average UV index")
+plt.xlabel("Magnetic Intensity/µT")
+plt.show()
+
+plt.title("Magnometer - Precipitation")
+plt.scatter(magn_points_of_study,avg_precip[:,0])
+plt.ylabel("Average Precipitation/mm")
+plt.xlabel("Magnetic Intensity/µT")
+plt.show()
+
+plt.title("Magnometer - Humidity")
+plt.scatter(magn_points_of_study,avg_humidity[:,0])
+plt.ylabel("Average Humidity/%")
+plt.xlabel("Magnetic Intensity/µT")
+plt.show()
