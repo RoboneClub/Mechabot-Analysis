@@ -1,3 +1,10 @@
+"""
+This expirment tests whether or not the magnetic field affects the objects in 
+the LEO by correlating the resultant intensity of the magnetic field with the 
+accelertaion and angular velocity of the ISS
+"""
+
+
 """ Importing the libraries and the modules """
 from datetime import datetime,timedelta
 import magn

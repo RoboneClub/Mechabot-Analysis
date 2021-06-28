@@ -35,7 +35,7 @@ magn_filtered_matrix = noise_filtering.noise_filtering(magnX,magnY,magnZ,sensiti
 magn_resultant = magn.get_resultant(magn_filtered_matrix[:,0],magn_filtered_matrix[:,1],magn_filtered_matrix[:,2])
 magn_sd = magn.get_sd(magn_resultant)
 magn_mean = magn.get_mean(magn_resultant)
-magn_autocorrelation = magn.autocor(magn_resultant)
+magn_autocorrelation = magn.autocor(magn_resultant) #A graph is plotted for the magnetic intensity autocorrelation in expirment 2
 
 
 '''4- Plotting the graphs '''
@@ -123,9 +123,9 @@ avg_humidity = np.array(API.get_avg_humidity(weather_data))
 """_______________________ Part 4: Comparing the Magnometer values with  the weather history data for each of the study points _______________________"""
 
 """
-This experiment produces graphs that check for correlations between change in Magnetic field intensity and each of
-Average Temperature, Wind Speed, UV Index, Precipitation, and Humidty in 20 locations for the past 10 years
-including the current year.
+This experiment produces graphs that check for correlations between change in Magnetic field intensity and the change of each of
+Average Temperature, Wind Speed, UV Index, Precipitation, and Humidty in 20 locations for the past 10 years.
+Each graph contains the past climate history along side with the magnetic intensity history for Each Location from the 20 Points.
 """
 
 import plot
@@ -145,8 +145,9 @@ plot.plot_2d(x_axis,'Year',avg_humidity,'Average humidity',magn_history,'Magneti
 """____________ Part 5: Comparing the Magnometer values with the climate of the study points to check general characetistics of magnetic zones __________"""
 
 """
-This experiment produces graphs that check for general characteristic in climate and whether they are correlated to magnetic intensity or not
-in 20 locations.
+This experiment checks for the presence of climate characteristics associated with the magnetic intensity.For example it checks if
+areas with high magnetic intensities tend to have higher temperatures than other areas with lower magnetic intensities.
+The experiment scatters each reading of the magnetic field alongside with the climate values from the 20 locations all in one graph.
 """
 
 #plotting the graphs
