@@ -58,7 +58,6 @@ plt.plot(time,[magn_sd]*len(magnX),label='Standard Deviation')
 plt.legend()
 plt.show()
 
-
 """_______________________ Part 2: Extracting 20  points to preform the research on _______________________"""
 
 ''' 0-The chosen points: '''
@@ -74,7 +73,7 @@ long_dd = map.dms2dd(long_dms)
 lat_dd = map.dms2dd(lat_dms)
 
 '''2-Marking the Study Points on the Map'''
-map.plot(long_dd,lat_dd,'Study Points')
+#map.plot(long_dd,lat_dd,'Study Points')
 
 #Getting the image numbers for the images of the chosen locations
 imgs = data.iloc[points_of_study]['ImgNo'].values
@@ -126,7 +125,6 @@ This experiment checks for the presence of climate characteristics associated wi
 areas with high magnetic intensities tend to have higher temperatures than other areas with lower magnetic intensities.
 The experiment scatters each reading of the magnetic field alongside with the climate values from the 20 locations all in one graph.
 """
-
 #plotting the graphs
 plt.title("Magnometer - Temperature")
 plt.scatter(magn_points_of_study,avg_temp[:,0])
@@ -168,7 +166,6 @@ This experiment produces graphs that check for correlations between change in Ma
 Average Temperature, Wind Speed, UV Index, Precipitation, and Humidty in 20 locations for the past 10 years.
 Each graph contains the past climate history along side with the magnetic intensity history for Each Location from the 20 Points.
 """
-
 import plot
 locations = API.get_location(long_dd,lat_dd)
 
@@ -180,6 +177,4 @@ plot.plot_2d(x_axis,'Year',avg_wind_speed,'Average wind speed',magn_history,'Mag
 plot.plot_2d(x_axis,'Year',avg_uv_index,'Average UV index',magn_history,'Magnetic field intensity/µT',locations)
 plot.plot_2d(x_axis,'Year',avg_precip,'Average precip',magn_history,'Magnetic field intensity/µT',locations)
 plot.plot_2d(x_axis,'Year',avg_humidity,'Average humidity',magn_history,'Magnetic field intensity/µT',locations)
-
-
 
